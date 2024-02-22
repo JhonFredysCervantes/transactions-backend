@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Constants {
     public static final String COMMA = ",";
+    public static final String PERCENT = "%";
     public static final int ZERO = 0;
 }

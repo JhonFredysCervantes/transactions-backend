@@ -44,7 +44,7 @@ public class PayTransactionsController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @PostMapping("/transactions/pay")
+    @PostMapping("api/transactions/pay")
     public ResponseEntity<List<PayTransactionResponse>> payTransactions(@RequestBody PayTransactionRequest payTransactionRequest) {
         var useCaseCommand = PayTransactionsCommand.builder()
                 .transactionIDs(payTransactionRequest.getIds())

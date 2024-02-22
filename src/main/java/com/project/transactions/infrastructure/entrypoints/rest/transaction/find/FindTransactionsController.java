@@ -44,7 +44,7 @@ public class FindTransactionsController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @GetMapping("/transactions")
+    @GetMapping("/api/transactions")
     public ResponseEntity<List<FindTransactionsResponse>> findTransactions(@RequestParam(required = false) String name,
                                                                            @RequestParam(required = false) String status,
                                                                            @RequestParam(required = false) String fromDate,

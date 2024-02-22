@@ -43,7 +43,7 @@ public class CreateTransactionController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @PostMapping("/transactions")
+    @PostMapping("/api/transactions")
     public ResponseEntity<Void> createTransaction(@RequestBody CreateTransactionRequest createTransactionRequest) {
         var createTransactionCommand = CreateTransactionCommand.builder()
                 .name(createTransactionRequest.getName())

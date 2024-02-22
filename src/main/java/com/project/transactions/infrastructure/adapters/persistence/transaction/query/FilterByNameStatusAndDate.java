@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.project.transactions.domain.model.shared.Constants.PERCENT;
 import static java.util.Objects.isNull;
 
 /**
@@ -35,7 +36,7 @@ public class FilterByNameStatusAndDate implements Specification<TransactionEntit
         List<Predicate> filtersHomologue = new ArrayList<>();
 
         if (!isNull(filterTransaction.getName())) {
-            filtersHomologue.add(criteriaBuilder.like(root.get("name"), filterTransaction.getName().getValue()));
+            filtersHomologue.add(criteriaBuilder.like(root.get("name"), PERCENT + filterTransaction.getName().getValue() + PERCENT));
         }
 
         if (!isNull(filterTransaction.getStatus())) {

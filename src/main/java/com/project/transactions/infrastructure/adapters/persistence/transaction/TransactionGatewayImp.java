@@ -9,6 +9,7 @@ import com.project.transactions.infrastructure.adapters.persistence.transaction.
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Transaction gateway implementation
@@ -42,6 +43,12 @@ public class TransactionGatewayImp implements ITransactionGateway {
     }
 
     @Override
+    public Optional<Transaction> findById(ID id) {
+        var transaction = transactionRepository.findById(id.getValue());
+        return transaction.map(TransactionEntity::toModel);
+    }
+
+    @Override
     public List<Transaction> finByIds(List<ID> ids) {
         var idsInString = ids.parallelStream()
                 .map(ID::getValue)
@@ -50,5 +57,17 @@ public class TransactionGatewayImp implements ITransactionGateway {
         return transactions.parallelStream()
                 .map(TransactionEntity::toModel)
                 .toList();
+    }
+
+    @Override
+    public Transaction update(Transaction transaction) {
+        var transactionUpdated = transactionRepository.save(TransactionEntity.toEntity(transaction));
+        return TransactionEntity.toModel(transactionUpdated);
+    }
+
+    @Override
+    public Void deleteById(ID id) {
+        transactionRepository.deleteById(id.getValue());
+        return null;
     }
 }
