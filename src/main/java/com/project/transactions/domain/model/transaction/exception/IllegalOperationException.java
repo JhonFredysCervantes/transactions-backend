@@ -12,6 +12,6 @@ public class IllegalOperationException extends TransactionExceptionBase {
      * @param operation The operation name
      */
     public IllegalOperationException(String operation) {
-        super("TRANS-IO-001", IllegalOperationException.class.getSimpleName(), String.format("Illegal operation: %s", operation));
+        super("TRAN-IO-001", IllegalOperationException.class.getSimpleName(), String.format("Illegal operation: %s", operation));
     }
 }

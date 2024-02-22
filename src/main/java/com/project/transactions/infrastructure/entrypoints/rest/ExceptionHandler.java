@@ -3,10 +3,12 @@ package com.project.transactions.infrastructure.entrypoints.rest;
 import com.project.transactions.domain.model.shared.exception.Error;
 import com.project.transactions.domain.model.shared.exception.TransactionExceptionBase;
 import com.project.transactions.domain.model.transaction.exception.AmountValueCanNotBeLessThanZero;
+import com.project.transactions.domain.model.transaction.exception.IllegalOperationException;
 import com.project.transactions.domain.model.transaction.exception.TransactionIdCanNotBeNullOrEmptyException;
 import com.project.transactions.domain.model.transaction.exception.TransactionNameCanNotBeNullOrEmptyException;
 import com.project.transactions.domain.model.transaction.exception.TransactionNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -29,6 +31,11 @@ public class ExceptionHandler {
             AmountValueCanNotBeLessThanZero.class, TransactionIdCanNotBeNullOrEmptyException.class})
     public ResponseEntity<Error> handleBadRequestExceptions(TransactionExceptionBase transactionExceptionBase) {
         return new ResponseEntity<>(transactionExceptionBase.getError(), org.springframework.http.HttpStatus.BAD_REQUEST);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler({IllegalOperationException.class})
+    public ResponseEntity<Error> handleBadConflictExceptions(TransactionExceptionBase transactionExceptionBase) {
+        return new ResponseEntity<>(transactionExceptionBase.getError(), HttpStatus.CONFLICT);
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler({Exception.class})

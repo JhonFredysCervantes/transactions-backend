@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Find transactions controller
  */
-@Tag(name = "Find", description = "find transactions controller")
+@Tag(name = "Find", description = "Find transactions controller")
 @RestController
 public class FindTransactionsController {
     private final IFindTransactions useCase;

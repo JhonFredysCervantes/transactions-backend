@@ -9,12 +9,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.net.URI;
 
 /**
  * Create transaction controller
@@ -37,21 +36,22 @@ public class CreateTransactionController {
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content =
             @Content(mediaType = "application/json", schema = @Schema(implementation = CreateTransactionRequest.class))
             ))
-    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Transaction created",
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Transaction created",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = Void.class))),
             @ApiResponse(responseCode = "400", description = "Bad request",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class)))})
-    @PostMapping("/api/transactions")
+    @PostMapping(value = "/api/transactions", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Void> createTransaction(@RequestBody CreateTransactionRequest createTransactionRequest) {
         var createTransactionCommand = CreateTransactionCommand.builder()
                 .name(createTransactionRequest.getName())
                 .amount(createTransactionRequest.getAmount())
                 .build();
-        var id = useCase.execute(createTransactionCommand);
+        useCase.execute(createTransactionCommand);
         return ResponseEntity
-                .created(URI.create(String.format("/transactions/%s", id.getValue())))
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
                 .build();
     }
 

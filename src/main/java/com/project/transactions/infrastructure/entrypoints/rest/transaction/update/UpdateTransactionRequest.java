@@ -1,20 +1,19 @@
-package com.project.transactions.infrastructure.entrypoints.rest.transaction.create;
+package com.project.transactions.infrastructure.entrypoints.rest.transaction.update;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
- * Create transaction request
+ * Update transaction request
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class CreateTransactionRequest implements Serializable {
+public class UpdateTransactionRequest {
+    private String id;
     private String name;
     private long amount;
 }

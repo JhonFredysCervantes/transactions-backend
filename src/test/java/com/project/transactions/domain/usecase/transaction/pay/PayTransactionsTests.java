@@ -95,7 +95,7 @@ class PayTransactionsTests {
 
     @Test
     void TThrow_Exception_When_Transaction_Was_Not_Found() {
-        var command = PayTransactionsCommandMother.invalidAmountPayTransactionsCommand();
+        var command = PayTransactionsCommandMother.validPayTransactionsCommand();
         var emptyList = new ArrayList<Transaction>();
 
         when(transactionGateway.finByIds(anyList()))
